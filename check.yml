@@ -1,0 +1,45 @@
+name: Verificar capítulo novo
+
+on:
+  schedule:
+    # Horários em UTC. Brasil (BRT) = UTC-3.
+    # 12:00 UTC = 09:00 no Brasil  |  00:00 UTC = 21:00 no Brasil
+    - cron: "0 12 * * *"
+    - cron: "0 0 * * *"
+  workflow_dispatch:   # permite rodar manualmente pelo botão "Run workflow"
+
+permissions:
+  contents: write       # necessário pra salvar o estado de volta no repo
+
+jobs:
+  checar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install requests
+
+      - name: Rodar verificador
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python check_manga.py
+
+      - name: Salvar estado (se mudou)
+        run: |
+          if [[ -n "$(git status --porcelain manga_state.json)" ]]; then
+            git config user.name "manga-bot"
+            git config user.email "bot@users.noreply.github.com"
+            git add manga_state.json
+            git commit -m "Atualiza último capítulo"
+            git push
+          else
+            echo "Nada mudou, nada pra salvar."
+          fi

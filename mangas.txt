@@ -1,0 +1,10 @@
+# Cole aqui seus links de mangá, UM POR LINHA, com o número do
+# último capítulo que você já leu no final (do jeito que estão hoje).
+#
+# Linhas que começam com # são ignoradas (pode usar pra anotar/desativar).
+# Linhas em branco também são ignoradas.
+#
+# Exemplo:
+https://toonlivre.net/o-retorno-do-cao-de-caca-dos-baskerville/165
+# https://toonlivre.net/nome-de-outro-manga/42
+# https://toonlivre.net/mais-um-manga/210
