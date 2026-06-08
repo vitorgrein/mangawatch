@@ -2,14 +2,21 @@ name: Verificar capítulo novo
 
 on:
   schedule:
-    # Horários em UTC. Brasil (BRT) = UTC-3.
-    # 12:00 UTC = 09:00 no Brasil  |  00:00 UTC = 21:00 no Brasil
-    - cron: "0 12 * * *"
-    - cron: "0 0 * * *"
-  workflow_dispatch:   # permite rodar manualmente pelo botão "Run workflow"
+    - cron: "0 9 * * *"   # 06:00 BRT
+    - cron: "0 11 * * *"  # 08:00 BRT
+    - cron: "0 13 * * *"  # 10:00 BRT
+    - cron: "0 14 * * *"  # 11:00 BRT
+    - cron: "0 15 * * *"  # 12:00 BRT
+    - cron: "0 16 * * *"  # 13:00 BRT
+    - cron: "0 19 * * *"  # 16:00 BRT
+    - cron: "0 21 * * *"  # 18:00 BRT
+    - cron: "0 23 * * *"  # 20:00 BRT
+    - cron: "0 0 * * *"   # 21:00 BRT
+    - cron: "0 2 * * *"   # 23:00 BRT
+  workflow_dispatch:
 
 permissions:
-  contents: write       # necessário pra salvar o estado de volta no repo
+  contents: write
 
 jobs:
   checar:
