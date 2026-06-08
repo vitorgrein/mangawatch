@@ -17,7 +17,8 @@ import os
 import sys
 import time
 
-import requests
+import cloudscraper
+requests = cloudscraper.create_scraper()
 
 LISTA_FILE = "mangas.txt"
 STATE_FILE = "manga_state.json"
