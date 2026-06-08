@@ -4,7 +4,40 @@
 # Linhas que começam com # são ignoradas (pode usar pra anotar/desativar).
 # Linhas em branco também são ignoradas.
 #
-# Exemplo:
 https://toonlivre.net/o-retorno-do-cao-de-caca-dos-baskerville/165
-# https://toonlivre.net/nome-de-outro-manga/42
-# https://toonlivre.net/mais-um-manga/210
+https://toonlivre.net/o-arquimago-retorna-apos-4000-anos/259
+https://toonlivre.net/retorno-do-demonio-louco/198
+https://toonlivre.net/o-retorno-do-jogador-congelado/212
+https://toonlivre.net/upando-com-os-deuses/162
+https://toonlivre.net/deus-do-campo-de-batalha/320
+https://toonlivre.net/o-jogador-que-esconde-seu-passado/121
+https://toonlivre.net/100-regressao-do-jogador-de-nivel-maximo/86
+https://toonlivre.net/o-filho-regressor-do-duque-e-um-assassino/129
+https://toonlivre.net/eu-obtive-um-item-mitico/182
+https://toonlivre.net/o-cacula-do-mestre-espadachim/201
+https://toonlivre.net/logando-10-000-anos-no-futuro/325
+https://toonlivre.net/necromante-rei-dos-mortos/277
+https://toonlivre.net/sentido-absoluto-da-espada/185
+https://toonlivre.net/novato-de-nivel-maximo/262
+https://toonlivre.net/imperador-demoniaco/865
+https://toonlivre.net/nanotecnologia-marcial/315
+https://toonlivre.net/o-mundo-apos-a-queda/236
+https://toonlivre.net/vilao-a-ser-morto/238
+https://toonlivre.net/cronicas-da-faccao-demoniaca/174
+https://toonlivre.net/o-jogador-que-voltou-10-000-anos-depois/154
+https://toonlivre.net/o-rei-dos-cavaleiros-que-retorna-com-um-deus/167
+https://toonlivre.net/o-tutorial-e-muito-dificil/272
+https://toonlivre.net/mestre-espadachim-criado-pelas-estrelas/124
+https://toonlivre.net/o-comeco-depois-do-fim/238
+https://toonlivre.net/o-retorno-do-jogador-de-classe-sss/194
+https://toonlivre.net/providencia-de-alto-nivel/265
+https://toonlivre.net/ultra-equipado-as-aventuras-de-greed/326
+https://toonlivre.net/supremo-sistema-de-blefes/395
+https://toonlivre.net/essencia-da-reencarnacao/184
+https://toonlivre.net/cronicas-do-retorno-do-deus-marcial/157
+https://toonlivre.net/retorno-do-heroi-de-classe-desastre/178
+https://toonlivre.net/genio-da-esgrima-da-academia/138
+https://toonlivre.net/upando-infinitamente-murim/240
+https://toonlivre.net/torre-de-deus/652
+https://toonlivre.net/torre-de-deus-urek-mazino/58
+https://toonlivre.net/o-retorno-da-seita-do-monte-hua/165
