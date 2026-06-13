@@ -1,0 +1,23 @@
+# Configurações globais do BP-ETL (válidas para todas as carteiras).
+# Valores ${VAR} são substituídos por variáveis de ambiente (carregadas do .env).
+
+conexoes:
+  mysql_producao:
+    url: "mysql+pymysql://${ETL_PROD_USER}:${ETL_PROD_PASS}@servidor-mysql:3306/cobranca?charset=utf8mb4"
+  mysql_datamart:
+    url: "mysql+pymysql://${ETL_DATAMART_USER}:${ETL_DATAMART_PASS}@servidor-mysql:3306/datamart?charset=utf8mb4"
+
+# Conexão usada para gravar fato_daily, fato_funil e etl_controle_execucao
+datamart: mysql_datamart
+
+caminhos:
+  # Em produção, aponte para a pasta de rede do servidor, ex.:
+  #   staging: '\\servidor\etl\staging'
+  #   logs: '\\servidor\etl\logs'
+  staging: staging
+  logs: logs
+
+calendario:
+  # Feriados nacionais BR são calculados automaticamente (lib holidays).
+  # Liste aqui feriados extras (estaduais/municipais), formato YYYY-MM-DD:
+  feriados_extras: []

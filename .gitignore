@@ -1,0 +1,14 @@
+# Ambiente
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.env
+
+# Saídas de execução (em produção apontam para a rede via settings.yml)
+staging/
+logs/
+
+# IDE
+.idea/
+.vscode/

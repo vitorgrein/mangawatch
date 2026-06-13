@@ -1,0 +1,76 @@
+# ============================================================================
+# CONFIG DE CARTEIRA — copie esta pasta, renomeie e ajuste.
+# O analista só edita este arquivo e as queries em sql/. Zero Python.
+# Valide com:  python -m etl validate --carteira <nome>
+# ============================================================================
+
+# Deve ser IGUAL ao nome da pasta
+carteira: exemplo_banco_x
+nome_exibicao: "Banco X - Varejo"
+
+# Conexão de origem (definida em settings.yml -> conexoes)
+conexao: mysql_producao
+
+# Relatórios habilitados para esta carteira
+relatorios: [daily, funil]
+
+filtros:
+  # Fragmento SQL da BASE ATIVA — entra nas queries via {{ base_ativa }}
+  base_ativa: "c.status_contrato = 'ATIVO' AND c.dias_atraso BETWEEN 5 AND 360"
+  # Acordo contado por data de: geracao | vencimento (vira {{ acordo_por }} nas queries)
+  acordo_por: geracao
+  # Placeholders extras opcionais: cada chave vira uma variável {{ chave }} nos .sql
+  extras: {}
+
+# Indicadores padrão -> arquivo .sql na pasta sql/ desta carteira.
+# 'estoque' é OBRIGATÓRIO: nenhum indicador conta fora do estoque da carteira.
+# Remova a linha de um indicador que a carteira não possui.
+consultas:
+  estoque: estoque.sql
+  discado: discado.sql
+  email: email.sql
+  sms: sms.sql
+  whatsapp: whatsapp.sql
+  acionamento: acionamento.sql
+  acordo: acordos.sql
+  pago: pagos.sql
+
+# Segmentações DESTA carteira (cada carteira pode ter as suas).
+# tipo 'coluna' -> usa a coluna retornada pelo estoque.sql como está
+# tipo 'faixas' -> cria buckets a partir de uma coluna numérica do estoque
+segmentacoes:
+  - nome: faixa_atraso
+    tipo: faixas
+    coluna_origem: dias_atraso
+    faixas:
+      - {ate: 30,  rotulo: "00-30"}
+      - {ate: 90,  rotulo: "31-90"}
+      - {ate: 180, rotulo: "91-180"}
+      - {rotulo: "180+"}            # última faixa sempre aberta (sem 'ate')
+  - nome: produto
+    tipo: coluna
+    coluna_origem: produto
+
+# Funil = acumulado do mês até a data_ref (uma foto por dia útil).
+funil:
+  # respeitar     -> só conta na etapa se contou na anterior; pagamento é
+  #                  atribuído ao dia de GERAÇÃO do acordo (exige data_acordo no pagos.sql)
+  # nao_respeitar -> totais independentes (apenas o estoque é sempre respeitado)
+  # forcar        -> positivo numa etapa força as anteriores a positivas
+  cascata: respeitar
+  # Ordem da cascata (configurável por carteira). A primeira etapa é sempre o estoque.
+  etapas:
+    - {nome: estoque,          indicadores: [estoque]}
+    - {nome: acionado_sistema, indicadores: [discado, email, sms, whatsapp]}
+    - {nome: acionamento,      indicadores: [acionamento]}
+    - {nome: acordo,           indicadores: [acordo]}
+    - {nome: pago,             indicadores: [pago]}
+
+extracao:
+  chunk_size: 500000   # linhas por chunk de extração (controla memória)
+
+qualidade:
+  # Indicadores onde 0 linhas no período é aceitável (vira AVISO em vez de ERRO)
+  permitir_zero_linhas: [email]
+  # % máximo do estoque sem valor de segmentação antes de gerar AVISO
+  max_pct_segmento_nulo: 5
