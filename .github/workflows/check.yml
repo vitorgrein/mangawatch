@@ -18,6 +18,12 @@ on:
 permissions:
   contents: write
 
+# Compartilha a trava com o "Bot de comandos" pra os dois nunca
+# escreverem no repositório ao mesmo tempo (evita conflito de push).
+concurrency:
+  group: mangawatch-escrita
+  cancel-in-progress: false
+
 jobs:
   checar:
     runs-on: ubuntu-latest
@@ -46,6 +52,7 @@ jobs:
             git config user.email "bot@users.noreply.github.com"
             git add manga_state.json
             git commit -m "Atualiza último capítulo"
+            git pull --rebase --autostash origin main
             git push
           else
             echo "Nada mudou, nada pra salvar."

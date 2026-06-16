@@ -143,16 +143,16 @@ def avisar_telegram(token, chat_id, nome, base, novos):
 
 
 # ------------------------------------------------------------------
-def main():
-    token   = os.environ.get("TELEGRAM_TOKEN")
-    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
-    if not token or not chat_id:
-        print("[!] TELEGRAM_TOKEN/TELEGRAM_CHAT_ID não definidos — só log, sem notificação.\n")
+def rodar_verificacao(token, chat_id):
+    """Percorre a lista, avisa no Telegram e atualiza o estado.
 
+    Retorna a quantidade total de capítulos novos encontrados.
+    Reaproveitado pelo comando /check do bot.
+    """
     obras = ler_lista()
     if not obras:
         print("Nenhuma obra em mangas.txt.")
-        return
+        return 0
 
     estado      = carregar_estado()
     total_novos = 0
@@ -185,6 +185,17 @@ def main():
 
     salvar_estado(estado)
     print(f"Resumo: {total_novos} capítulo(s) novo(s) no total.")
+    return total_novos
+
+
+def main():
+    token   = os.environ.get("TELEGRAM_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        print("[!] TELEGRAM_TOKEN/TELEGRAM_CHAT_ID não definidos — só log, sem notificação.\n")
+
+    rodar_verificacao(token, chat_id)
+    return 0
 
 
 if __name__ == "__main__":

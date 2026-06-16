@@ -12,8 +12,11 @@ você não precisa deixar nenhum PC ligado. Aguenta dezenas de mangás.
 |---|---|
 | `mangas.txt` | **A sua lista.** Você cola aqui os links, um por linha. |
 | `check_manga.py` | O verificador. Roda por toda a lista. |
+| `bot_commands.py` | Processa os comandos que você manda pro bot (`/add`, `/list`, etc.). |
 | `manga_state.json` | Guarda o progresso (atualizado sozinho; começa vazio). |
-| `.github/workflows/check.yml` | Agenda às 09h e 21h (horário de Brasília). |
+| `telegram_offset.json` | Marca quais mensagens já foram lidas (atualizado sozinho). |
+| `.github/workflows/check.yml` | Agenda as verificações de capítulo novo. |
+| `.github/workflows/bot.yml` | Processa os comandos a cada ~15 min. |
 
 ---
 
@@ -38,6 +41,45 @@ https://toonlivre.net/mais-um-manga/210
 > **Importante:** depois do primeiro acompanhamento, o progresso real fica
 > no `manga_state.json` (atualizado automaticamente). O número no `mangas.txt`
 > serve só como ponto de partida — não precisa ficar editando ele à mão.
+
+---
+
+## Comandos pelo Telegram
+
+Agora dá pra gerenciar a lista **mandando mensagem pro próprio bot** — não
+precisa mais editar o `mangas.txt` na mão.
+
+| Comando | O que faz |
+|---|---|
+| `/add <link>` | Adiciona uma obra ao monitoramento. |
+| `/remove <link ou nome>` | Remove uma obra da lista. |
+| `/list` | Mostra todas as obras monitoradas e o capítulo atual. |
+| `/check` | Força uma verificação imediata de capítulos novos. |
+| `/help` | Mostra a ajuda. |
+
+**Sobre o `/add`:**
+- Pode mandar o link **com** ou **sem** o número no final.
+  - Com número (`.../torre-de-deus/652`) → começa a monitorar a partir desse capítulo.
+  - Sem número (`.../torre-de-deus`) → o bot consulta o site e começa a partir
+    do **capítulo atual**, pra você não levar uma enxurrada de avisos antigos.
+
+> ⏳ **Não é instantâneo.** Como tudo roda de graça no GitHub Actions (sem PC
+> ligado), os comandos são processados na próxima rodada do `bot.yml`
+> (a cada ~15 min, às vezes um pouco mais — o agendamento do GitHub atrasa).
+> O bot responde no Telegram assim que processa.
+
+> 🔒 **Só você manda.** O bot só obedece a mensagens vindas do
+> `TELEGRAM_CHAT_ID` cadastrado. Mensagens de qualquer outra pessoa são ignoradas.
+
+> 💡 **Dica:** pra aparecer o menu de comandos no Telegram, fale com o
+> **@BotFather**, mande `/setcommands`, escolha seu bot e cole:
+> ```
+> add - Adiciona um mangá (manda o link junto)
+> remove - Remove um mangá (link ou nome)
+> list - Lista os mangás monitorados
+> check - Verifica capítulos novos agora
+> help - Mostra a ajuda
+> ```
 
 ---
 
